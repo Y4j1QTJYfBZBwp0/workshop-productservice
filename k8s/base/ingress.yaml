@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: products-ingress
+spec:
+  ingressClassName: nginx          # garanta que seja o nome do seu controller
+  rules:
+    - host: products.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: products-svc
+                port:
+                  number: 80           # porta do Service (não a 8080 do Pod)
